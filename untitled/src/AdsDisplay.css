@@ -1,0 +1,51 @@
+.app-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  padding: 20px;
+}
+
+.ad-container {
+  width: 15%;
+  position: sticky;
+  top: 100px;
+}
+
+.main-content {
+  width: 80%;
+
+}
+
+
+.main-content {
+  margin-right: 110px; 
+}
+
+
+  .ad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  .ad h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0 0 10px;
+  }
+  .ad p {
+    font-size: 0.9em;
+    margin: 0 0 10px;
+  }
+  .ad img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+  }
+  
