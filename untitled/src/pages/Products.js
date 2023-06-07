@@ -129,21 +129,32 @@ export function Products() {
     }
 
     function addToCart(event) {
-        event.preventDefault()
+        event.preventDefault();
         const button = event.target.closest('button');
+        const itemId = button.dataset["mkId"];
+        const itemName = button.dataset["mkName"];
+        const itemPrice = button.dataset["mkPrice"];
+      
         let idList = "cart" in localStorage ? JSON.parse(localStorage.getItem("cart")) : [];
-
-        idList.map((p) => p.id).includes(button.dataset["mkId"]) === false ? idList.push({
-            id: button.dataset["mkId"],
+      
+        const existingItem = idList.find((item) => item.id === itemId);
+        if (existingItem) {
+          // If the item already exists in the cart, increment the quantity
+          existingItem.quantity += 1;
+        } else {
+          // If the item doesn't exist in the cart, add it as a new item
+          idList.push({
+            id: itemId,
             quantity: 1,
-            name: button.dataset["mkName"],
-            price: button.dataset["mkPrice"]
-        }) : console.log();
-
-        localStorage.setItem("cart", JSON.stringify(idList))
+            name: itemName,
+            price: itemPrice
+          });
+        }
+      
+        localStorage.setItem("cart", JSON.stringify(idList));
         window.dispatchEvent(new Event('storage'));
-        console.log(idList)
-    }
+        console.log(idList);
+      }
 
     return (
         <Container fluid as={"div"} className="vh-100 mt-5">
