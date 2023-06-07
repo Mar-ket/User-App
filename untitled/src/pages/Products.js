@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import {Button, Card, CardGroup, Col, Form, Row} from "react-bootstrap";
+import {Button, Card, FloatingLabel, Col, Form, Row} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
@@ -147,53 +147,74 @@ export function Products() {
 
     return (
         <Container fluid as={"div"} className="vh-100 mt-5">
-            <Row className="h-100">
-                <Col className="d-none d-lg-block d-md-block d-xl-block text-center" md={3} lg={3}>
-                    Filtros Go here
-                </Col>
-                <Col className={"text-center overflow-scroll"} md={9} lg={9}>
-                    <Container fluid className={"w-100"}>
-
-                        <Form noValidate validated={validated} onSubmit={handleSubmit} className={"mb-3"}>
-                            <Form.Group className="mb-3" controlId="SearchForm">
-                                <Form.Control type="text" onChange={updateSearchQuery} placeholder="Search"/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId={"searchlimit"}>
-                                <Form.Select aria-label="Display Items" defaultChecked={searchLimit}
-                                             onChange={handleSelect}>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                </Form.Select>
-                            </Form.Group>
-
-                            <Button className="mb-3" type="submit">Submit</Button>
-                        </Form>
-
-                        <Row xs={1} md={2} lg={4} className="g-4">
-                            {searchProducts.length > 0 && searchProducts.map((p, idx) => (
-                                <Col>
-                                    <LinkContainer to={`/Products/${p.id}`}>
-                                        <Card className={"h-100 "}>
-                                            <Card.Img variant="top" src={p.photos[0]}/>
-                                            <Card.Body>
-                                                <Card.Title>{p.name}</Card.Title>
-                                                <Container className={"d-flex align-items-center justify-content-center m-auto"}>
-                                                    <Card.Text className={"m-auto text-center"}>
-                                                        {(p.price * (idx + 1) + "").substring(0, 4)} $
-                                                    </Card.Text>
-                                                    <Button variant={"light"} className={"align-self-end"}  onClick={addToCart} data-mk-price={p.price}  data-mk-id={p.id} data-mk-name={p.name}><FontAwesomeIcon icon="fas fa-cart-plus" className={"text-primary"} /></Button>
-                                                </Container>
-                                            </Card.Body>
-                                        </Card>
-                                    </LinkContainer>
-                                </Col>
-                            )) || <Container> There are no Products to show!</Container>}
+            <Card>
+                <Card.Header>Search filters</Card.Header>
+                <Card.Body>
+                    <Card.Title>Please use the filters to find your product</Card.Title>
+                    <br/>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit} className={"mb-2"}>
+                        <Row className="g-2">
+                            <Col md>
+                                <Form.Group className="mb-3" controlId="SearchForm">
+                                    <FloatingLabel controlId="SearchForm" label="Search">
+                                        <Form.Control type="text" onChange={updateSearchQuery} placeholder="Search"/>
+                                    </FloatingLabel>
+                                </Form.Group>
+                            </Col>
+                            <Col md>
+                                <Form.Group className="mb-3" controlId={"searchlimit"}>
+                                    <FloatingLabel
+                                    controlId="floatingSelectGrid"
+                                    label="Display items"
+                                    >
+                                        <Form.Select aria-label="Display Items" controlId={"searchlimit"} defaultChecked={searchLimit}
+                                                    onChange={handleSelect}>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                        </Form.Select>
+                                    </FloatingLabel>
+                                </Form.Group>
+                            </Col>
+                            <Col md>
+                                <Button size="lg" variant="outline-primary" type="submit">Search</Button>
+                            </Col>
                         </Row>
-                    </Container>
-                </Col>
-            </Row>
+                    </Form>
+                </Card.Body>
+            </Card>
+            <br/>
+            <Card>
+                <Card.Header>Products</Card.Header>
+                <Card.Body>
+                    <Row className="h-100">
+                        <Col className={"text-center overflow-scroll"} md={9} lg={9}>
+                            <Container fluid className={"w-100"}>
+                                <Row xs={1} md={2} lg={3} className="g-4">
+                                    {searchProducts.length > 0 && searchProducts.map((p, idx) => (
+                                        <Col>
+                                            <LinkContainer to={`/Products/${p.id}`}>
+                                                <Card className={"h-100 "}>
+                                                    <Card.Img variant="top" src={p.photos}/>
+                                                    <Card.Body>
+                                                        <Card.Title>{p.name}</Card.Title>
+                                                        <Container className={"d-flex align-items-center justify-content-center m-auto"}>
+                                                            <Card.Text className={"m-auto text-center"}>
+                                                                {p.price} €  
+                                                            </Card.Text>
+                                                            <Button variant={"light"} className={"align-self-end"}  onClick={addToCart} data-mk-price={p.price}  data-mk-id={p.id} data-mk-name={p.name}><FontAwesomeIcon icon="fas fa-cart-plus" className={"text-primary"} /></Button>
+                                                        </Container>
+                                                    </Card.Body>
+                                                </Card>
+                                            </LinkContainer>
+                                        </Col>
+                                    )) || <Container> There are no Products to show!</Container>}
+                                </Row>
+                            </Container>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
         </Container>
-
     );
 }
