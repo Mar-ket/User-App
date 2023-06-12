@@ -3,10 +3,11 @@ import {Button, Container, Form} from "react-bootstrap";
 import axios from 'axios';
 import Authservice from "../services/authservice";
 
-const AUTH_API = 'http://localhost:5000';
-const ENTITIES_API = 'http://localhost:8000/entities';
 
 export function Login() {
+
+    const AUTH_API = `http://${process.env.REACT_APP_AUTHAPI}`;
+    const ENTITIES_API = `http://${process.env.REACT_APP_KONGURI}/entities`;
     const authservice = new Authservice(AUTH_API, ENTITIES_API);
     const [user_email, setUser_Email] = useState("");
     const [user_password, setUser_Password] = useState("");

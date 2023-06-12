@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Table, Button } from 'react-bootstrap';
 
+
 function DisplayAds() {
     const [ads, setAds] = useState([]);
+    const ads_url = process.env.REACT_APP_ADSURI;
 
     useEffect(() => {
         fetchAds();
@@ -11,7 +13,7 @@ function DisplayAds() {
 
     const fetchAds = async () => {
         try {
-            const response = await fetch('http://localhost:8000/ads/showAll');
+            const response = await fetch(`http://${ads_url}/ads/showAll`);
             if (response.ok) {
                 const data = await response.json();
                 setAds(data);
@@ -27,7 +29,7 @@ function DisplayAds() {
         const confirmDelete = window.confirm('Are you sure you want to delete this ad?');
         if (confirmDelete) {
             try {
-                const response = await axios.delete(`http://localhost:8000/ads/delete/${id}`);
+                const response = await axios.delete(`http://${ads_url}/ads/delete/${id}`);
                 if (response.status === 200) {
                     fetchAds();  
                 } else {

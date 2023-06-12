@@ -8,7 +8,9 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {faS} from "@fortawesome/free-solid-svg-icons";
 import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
 
+
 export function Products() {
+const api_url = process.env.REACT_APP_KONGURI;
     const [searchQuery, setSearchQuery] = useState("");
     const [offset, setOffset] = useState("");
     const [page, setPage] = useState("");
@@ -30,7 +32,7 @@ export function Products() {
     useEffect(() => {
         console.log("ola")
         library.add(faS,faCartPlus);
-        axios.get("http://localhost:8000/products/products", {
+        axios.get(`http://${api_url}/product`, {
             params: {
                 'searchQuery': searchQuery,
                 'limit': searchLimit,
@@ -75,7 +77,7 @@ export function Products() {
 
     const handleSubmit = (event) => {
         //setSearchQuery(event.currentTarget.)
-        axios.get("http://localhost:8000/products/products", {
+        axios.get(`http://${api_url}/products/products`, {
             params: {
                 'searchName': searchQuery,
                 'limit': searchLimit,

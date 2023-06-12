@@ -9,11 +9,14 @@ import {Badge} from "react-bootstrap";
 import {useEffect, useState} from "react";
 
 
-const AUTH_API = 'http://localhost:5000';
-const ENTITIES_API = 'http://localhost:8000/entities';
 
 export function NavBarTop() {
+
+const AUTH_API = process.env.REACT_APP_AUTHAPI
+const ENTITIES_API = `http://${process.env.REACT_APP_KONGURI}/entities`;
     const authservice = new AuthService(AUTH_API,ENTITIES_API );
+    console.log(process.env.REACT_APP_KONGURI)
+
     const perform_logout = () => {
 
         authservice.logout();
@@ -33,15 +36,16 @@ export function NavBarTop() {
         // This function will be called whenever the component mounts or
         // when a value in the dependency array (second argument) changes.
         const itemsInCart = "cart" in localStorage ? JSON.parse(localStorage.getItem('cart')).length : 0;
-        const username =  "username" in localStorage ? localStorage.getItem("username") : "Username Placeholder" ;
+        const username =  "username" in localStorage ? localStorage.getItem("username") : AUTH_API ;
         setUsername(username);
+        console.log(AUTH_API);
 
 
         setCartItems(itemsInCart);
         const handleLoginStatusChange = (event) => {
             console.log(event);
             const itemsInCart = "cart" in localStorage ? JSON.parse(localStorage.getItem('cart')).length : 0;
-        const username =  "username" in localStorage ? localStorage.getItem("username") : "Username Placeholder" ;
+        const username =  "username" in localStorage ? localStorage.getItem("username") : ENTITIES_API;
             setCartItems(itemsInCart);
             setUsername(username);
         };
@@ -68,7 +72,7 @@ export function NavBarTop() {
                         </LinkContainer>
                         <NavDropdown title="Ads" id="basic-nav-dropdown">
                             <LinkContainer to="/createAd">
-                                <NavDropdown.Item>Create Ad</NavDropdown.Item>
+                                <NavDropdown.Item>Create Ad {process.env.REACT_APP_AUTHAPI}</NavDropdown.Item>
                             </LinkContainer>
                             <LinkContainer to="/allAds">
                                 <NavDropdown.Item>Show Ads</NavDropdown.Item>
