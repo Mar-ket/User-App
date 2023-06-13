@@ -10,6 +10,7 @@ import TableComponent from '../components/TableComponent';
 import { useNavigate } from "react-router-dom";
 
 export function Cart() {
+    const kong_uri = process.env.REACT_APP_KONGURI;
     library.add(fab, faCheckSquare, faCoffee, faPlus, faMinus, faTrash)
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ export function Cart() {
     const checkout = () => {
         let saleId = '';
         setIsLoading(true);
-        axios.post('http://localhost:8000/sales/', {
+        axios.post(`http://${kong_uri}/sales/`, {
             id: 1,
             customer_id: localStorage.getItem("uId"),
             products: products.map(item => ({
@@ -49,9 +50,9 @@ export function Cart() {
         }).then(function (resp) {
             if (resp.status === 201) {
                 saleId = resp.data.url.split("/sales/")[1].split("/")[0];
-                axios.post(`http://localhost:8000/sales/checkout/${saleId}`, {
-                    "successUrl": "http://localhost:3000/SuccessPage",
-                    "cancelUrl": "http://localhost:3000/FailedPage",
+                axios.post(`http://${kong_uri}/sales/checkout/${saleId}`, {
+                    "successUrl": `${window.location.origin}/SuccessPage`,
+                    "cancelUrl": `${window.location.origin}/FailedPage`,
                 }).then(function (respChecout) {
                     setIsLoading(false);
                     if (respChecout.status === 200) {

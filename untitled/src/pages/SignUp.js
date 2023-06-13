@@ -2,7 +2,11 @@ import {React, useState} from "react";
 import {Container, Form, Row, InputGroup, Button, Col} from "react-bootstrap";
 import axios from "axios";
 
+
 export function Signup() {
+
+    const auth_api = process.env.REACT_APP_AUTHAPI;
+    const kong_url = process.env.REACT_APP_KONGURI;
     const [validated, setValidated] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -28,7 +32,7 @@ export function Signup() {
 
         let userId = "";
         axios.post(
-            'http://localhost:5000/api/v1/signup',
+            `http://${auth_api}/api/v1/signup`,
             {
                 username: username,
                 email: user_email,
@@ -58,7 +62,7 @@ export function Signup() {
                 localStorage.setItem("refresh_token", resp.data.refresh_token);
                 localStorage.setItem("token", resp.data.token);
                 userId = resp.data.id;
-                axios.post("http://localhost:8000/entities/entity", {
+                axios.post(`http://${kong_url}/entities/entity`, {
                     "isPartner": 0,
                     "name": firstName + lastName,
                     "address": "",

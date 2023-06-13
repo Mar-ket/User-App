@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Form, Button } from 'react-bootstrap';
 
+
 function CreateAd() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [targetUrl, setTargetUrl] = useState("");
     const [status, setStatus] = useState("active");
+    const api_url = process.env.ADRURI;
 
     const createAd = async (event) => {
         event.preventDefault();
 
         try {
             const adData = { title, description, imageUrl, targetUrl, status };
-            const response = await axios.post('http://localhost:8000/ads/create', adData);
+            const response = await axios.post(`http://${api_url}/ads/create`, adData);
 
             if (response.data) {
                 alert("Ad created successfully!");

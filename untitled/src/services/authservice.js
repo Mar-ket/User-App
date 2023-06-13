@@ -2,6 +2,7 @@ import axios from "axios";
 
 
 export class AuthService {
+
     constructor(auth_url, entities_url) {
         this._auth_service = axios.create({
             baseURL: auth_url,
@@ -37,7 +38,7 @@ export class AuthService {
                 localStorage.setItem("refresh_token", resp.data.refresh_token);
                 localStorage.setItem("token", resp.data.token);
                 userId = resp.data.id;
-                axios.get(`http://localhost:8000/entities/entity/external/${userId}`)
+                axios.get(`http://${process.env.REACT_APP_KONGURI}/entities/entity/external/${userId}`)
                     .then(function (respE) {
                         localStorage.setItem("username", respE.data.name);
                         localStorage.setItem("uId", respE.data.id);

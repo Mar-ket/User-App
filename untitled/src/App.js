@@ -20,8 +20,10 @@ import Ads from "./pages/Ads";
 import CreateAd from './pages/CreateAd';
 import DisplayAds from './pages/DisplayAds';
 
+
 function App() {
     const navigate = useNavigate();
+    const api_url = process.env.REACT_APP_KONGURI;
 
     const PrivateRoute = ({component: Component, isAuthenticated, ...rest}) => (<Route
         {...rest}
@@ -29,14 +31,13 @@ function App() {
             <Navigate to="/login" replace={true} state={{from: props.location}}/>)}
     />);
     const isAdmin = () => {
-        axios.get(`http://localhost:8000/entities/entity/externalId${JSON.parse(localStorage.getItem("user"))["id"]}`)
+        axios.get(`http://${api_url}/entities/entity/externalId${JSON.parse(localStorage.getItem("user"))["id"]}`)
 
     };
 
     return (<>
         <NavBarTop/>
         <div className="app-container"> 
-            
             <Routes>
                 <Route path="/" element={<Home/>}></Route>
                 <Route path="/login" element={<Login/>}></Route>

@@ -2,9 +2,11 @@ import {Badge, Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
+
 export function Account() {
 
 
+    const api_url = process.env.REACT_APP_KONGURI;
     const [validated, setValidated] = useState(false);
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
@@ -14,7 +16,7 @@ export function Account() {
     useEffect(() => {
         let userId = localStorage.getItem("uId");
 
-        axios.get(`http://localhost:8000/entities/entity/${userId}`).then(function (resp) {
+        axios.get(`http://${api_url}/entities/entity/${userId}`).then(function (resp) {
             console.log(resp);
             setPhoneNo(resp.data.phoneNo);
             setNif(resp.data.nif);

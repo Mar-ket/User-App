@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './../AdsDisplay.css';
+//axios.get(`http://${api_url}/entities/entity/${userId}`).then(function (resp) {
 
 function Ads() {
     const [ads, setAds] = useState([]);
   
+
+    const api_url = process.env.REACT_APP_ADSURI;
     useEffect(() => {
         async function fetchAds() {
             try {
-                const response = await axios.get('http://localhost:8000/ads');
+                const response = await axios.get(`http://${api_url}/ads`);
                 setAds(response.data.ads);
             } catch (error) {
                 console.error("Error fetching ads:", error);
@@ -19,7 +22,7 @@ function Ads() {
 
     const onAdClick = async (adUrl, adId) => {
         try {
-            const response = await axios.post(`http://localhost:8000/ads/click/${adId}`);
+            const response = await axios.post(`http://${api_url}/ads/click/${adId}`);
             if(response.status === 200) {
                 window.open(adUrl, '_blank');
             } else {

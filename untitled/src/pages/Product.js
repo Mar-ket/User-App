@@ -11,6 +11,7 @@ import Nav from "react-bootstrap/Nav";
 
 
 export function Product() {
+    const api_url = process.env.REACT_APP_KONGURI;
     const {id} = useParams();
     const [newLink, setNewLink] = useState("");
     const [product, setProduct] = useState({})
@@ -35,7 +36,7 @@ export function Product() {
     useEffect(() => {
         console.log("ola")
         setIsAdmin(true); // make call to entities service
-        axios.get(`http://localhost:8000/products/product/${id}`, {
+        axios.get(`http://${api_url}/products/product/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`

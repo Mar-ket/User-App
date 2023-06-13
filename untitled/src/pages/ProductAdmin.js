@@ -3,7 +3,9 @@ import React, {useEffect, useState} from "react";
 import {Button, Form, Container, Badge, Row, Col, Modal} from "react-bootstrap";
 import axios from "axios";
 
+
 export function ProductAdmin() {
+    const api_url = process.env.REACT_APP_KONGURI;
     const {id} = useParams();
     const [newLink, setNewLink] = useState("");
     const [product, setProduct] = useState({})
@@ -25,7 +27,7 @@ export function ProductAdmin() {
 
     useEffect(() => {
         console.log("ola")
-        axios.get(`http://localhost:8000/products/product/${id}`, {
+        axios.get(`http://${api_url}/products/product/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -65,7 +67,7 @@ export function ProductAdmin() {
         console.log(event.target.value)
     }
     const UpdateProduct = () => {
-        axios.put(`http://localhost:8000/products/product/${id}`,
+        axios.put(`http://${api_url}/products/product/${id}`,
             product,
             {
                 headers: {
