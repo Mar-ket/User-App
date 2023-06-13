@@ -1,8 +1,8 @@
 import {React, useState} from "react";
-import {Button, Container, Form} from "react-bootstrap";
+import {Button, Card, Form, Row, Col} from "react-bootstrap";
 import axios from 'axios';
 import Authservice from "../services/authservice";
-
+import './../App.css';
 
 export function Login() {
 
@@ -24,28 +24,36 @@ export function Login() {
     }
 
 
-    return (<Container>
-        <Form onSubmit={(event) => login_user(event)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="text" placeholder="Enter email"
-                              onChange={(event) => setUser_Email(event.target.value)}/>
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
+    return (
+        <div className="containerCenter">
+            <Card className="text-center">
+				<Card.Header>Sign In</Card.Header>
+                <Card.Body>
+                <img src="https://cdn.pixabay.com/animation/2022/12/01/17/03/17-03-11-60_512.gif"/>
+                    <Form onSubmit={(event) => login_user(event)}>
+                        <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
+                            <Form.Label column sm={2}>Email address</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control type="text" placeholder="Enter email"
+                                            onChange={(event) => setUser_Email(event.target.value)}/>
+                            </Col>
+                            <Form.Text className="text-muted">
+                                We'll never share your email with anyone else.
+                            </Form.Text>
+                        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password"
-                              onChange={(event) => setUser_Password(event.target.value)}/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Keep me logged in"/>
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
-    </Container>);
+                        <Form.Group as={Row} className="mb-3" controlId="formBasicPassword">
+                            <Form.Label column sm={2}>Password</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control type="password" placeholder="Password"
+                                            onChange={(event) => setUser_Password(event.target.value)}/>
+                            </Col>
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">Submit</Button>
+                    </Form>
+                </Card.Body>
+            </Card>
+        </div>
+    );
 }
