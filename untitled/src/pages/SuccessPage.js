@@ -11,6 +11,12 @@ export function  SuccessPage () {
         navigate("/products");
     };
 
+    const clearCart = () => {
+        localStorage.removeItem("cart");
+    };
+
+    clearCart();
+
     return (
         <div className="containerCenter">
             <Card className="text-center">
