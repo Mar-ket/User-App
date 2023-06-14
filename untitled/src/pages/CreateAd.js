@@ -9,14 +9,21 @@ function CreateAd() {
     const [imageUrl, setImageUrl] = useState("");
     const [targetUrl, setTargetUrl] = useState("");
     const [status, setStatus] = useState("active");
-    const api_url = process.env.ADRURI;
+    const api_url = process.env.REACT_APP_ADSURI;
 
     const createAd = async (event) => {
         event.preventDefault();
 
         try {
             const adData = { title, description, imageUrl, targetUrl, status };
-            const response = await axios.post(`http://${api_url}/ads/create`, adData);
+            const response = await axios.post(`http://${api_url}/ads/create`, adData,
+            {
+                headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    "Content-type": "application/json",
+                }
+            }
+            );
 
             if (response.data) {
                 alert("Ad created successfully!");

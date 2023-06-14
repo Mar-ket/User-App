@@ -38,7 +38,15 @@ export class AuthService {
                 localStorage.setItem("refresh_token", resp.data.refresh_token);
                 localStorage.setItem("token", resp.data.token);
                 userId = resp.data.id;
-                axios.get(`http://${process.env.REACT_APP_KONGURI}/entities/entity/external/${userId}`)
+                axios.get(`http://${process.env.REACT_APP_KONGURI}/entities/entity/external/${userId}`,
+{
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
+                "Authorization" : `Bearer ${localStorage.getItem("token")}`
+            }
+        }
+                )
                     .then(function (respE) {
                         localStorage.setItem("username", respE.data.name);
                         localStorage.setItem("uId", respE.data.id);

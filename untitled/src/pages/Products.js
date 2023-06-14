@@ -77,7 +77,7 @@ const api_url = process.env.REACT_APP_KONGURI;
 
     const handleSubmit = (event) => {
         //setSearchQuery(event.currentTarget.)
-        axios.get(`http://${api_url}/products/products`, {
+        axios.get(`http://${api_url}/product`, {
             params: {
                 'searchName': searchQuery,
                 'limit': searchLimit,

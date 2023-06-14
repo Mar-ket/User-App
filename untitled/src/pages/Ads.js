@@ -11,7 +11,14 @@ function Ads() {
     useEffect(() => {
         async function fetchAds() {
             try {
-                const response = await axios.get(`http://${api_url}/ads`);
+                const response = await axios.get(`http://${api_url}/ads`,
+            {
+                headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    "Content-type": "application/json",
+                }
+            }
+                );
                 setAds(response.data.ads);
             } catch (error) {
                 console.error("Error fetching ads:", error);
@@ -22,7 +29,14 @@ function Ads() {
 
     const onAdClick = async (adUrl, adId) => {
         try {
-            const response = await axios.post(`http://${api_url}/ads/click/${adId}`);
+            const response = await axios.post(`http://${api_url}/ads/click/${adId}`,{},
+            {
+                headers: {
+                    "Content-type": "application/json",
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+            );
             if(response.status === 200) {
                 window.open(adUrl, '_blank');
             } else {

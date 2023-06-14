@@ -29,7 +29,8 @@ export function Cart() {
     const checkout = () => {
         let saleId = '';
         setIsLoading(true);
-        axios.post(`http://${kong_uri}/sales/`, {
+        axios.post(`http://${kong_uri}/sales/`,
+            {
             id: 1,
             customer_id: localStorage.getItem("uId"),
             products: products.map(item => ({
@@ -39,7 +40,14 @@ export function Cart() {
             "payment_id": null,
             "amount": products.reduce((accumulator, prod) => accumulator + prod.price * prod.quantity, 0)
 
-        }).catch(function (error) {
+            },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        ).catch(function (error) {
             if (error.status === 401) {
                 alert("invalid Token");
                 return;
@@ -53,7 +61,12 @@ export function Cart() {
                 axios.post(`http://${kong_uri}/sales/checkout/${saleId}`, {
                     "successUrl": `${window.location.origin}/SuccessPage`,
                     "cancelUrl": `${window.location.origin}/FailedPage`,
-                }).then(function (respChecout) {
+                },{
+                headers: {
+                    "Content-type": "application/json",
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }).then(function (respChecout) {
                     setIsLoading(false);
                     if (respChecout.status === 200) {
                         setInterval(function (payment_link) {

@@ -72,14 +72,26 @@ export function Signup() {
                     "nif": nif,
                     "sku_list": '[]',
                     "externalID": resp.data.id
-                }).catch(function (error) {
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                }
+                ).catch(function (error) {
                     console.log("ERROR in entities")
                     if (error.status === 400) {
                         console.log("There probably is a problem with the data body");
                     } else
                         console.log(error.response.data)
                 }).then(function (resp) {
-                    axios.get(`http://localhost:8000/entities/entity/external/${userId}`).then(
+                    axios.get(`http://${kong_url}/entities/entity/external/${userId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                }).then(
                         function (respE) {
                             localStorage.setItem("username", respE.data.name);
                             window.location='/products'
