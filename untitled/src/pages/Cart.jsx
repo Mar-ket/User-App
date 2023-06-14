@@ -31,7 +31,7 @@ export function Cart() {
         setIsLoading(true);
         axios.post(`http://${kong_uri}/sales/`, {
             id: 1,
-            customer_id: localStorage.getItem("uId"),
+            customer_id: JSON.parse(localStorage.getItem("user")).id,
             products: products.map(item => ({
                 ...item,
                 price: parseFloat(item.price)
