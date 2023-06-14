@@ -32,7 +32,7 @@ export function Cart() {
         axios.post(`http://${kong_uri}/sales/`,
             {
             id: 1,
-            customer_id: JSON.parse(localStorage.getItem("user")).id,
+            customer_id: localStorage.getItem("username"),
             products: products.map(item => ({
                 ...item,
                 price: parseFloat(item.price)
