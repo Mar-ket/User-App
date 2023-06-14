@@ -13,7 +13,15 @@ function DisplayAds() {
 
     const fetchAds = async () => {
         try {
-            const response = await fetch(`http://${ads_url}/ads/showAll`);
+            const response = await fetch(`http://${ads_url}/ads/showAll`,
+            {
+                headers: {
+                    "Content-type": "application/json",
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+
+            );
             if (response.ok) {
                 const data = await response.json();
                 setAds(data);
@@ -29,7 +37,13 @@ function DisplayAds() {
         const confirmDelete = window.confirm('Are you sure you want to delete this ad?');
         if (confirmDelete) {
             try {
-                const response = await axios.delete(`http://${ads_url}/ads/delete/${id}`);
+                const response = await axios.delete(`http://${ads_url}/ads/delete/${id}`,
+            {
+                headers: {
+                    "Content-type": "application/json",
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
                 if (response.status === 200) {
                     fetchAds();  
                 } else {

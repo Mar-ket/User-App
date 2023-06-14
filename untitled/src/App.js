@@ -24,6 +24,8 @@ import DisplayAds from './pages/DisplayAds';
 function App() {
     const navigate = useNavigate();
     const api_url = process.env.REACT_APP_KONGURI;
+    const authapi_url = process.env.REACT_APP_AUTHAPI;
+    console.log(authapi_url)
 
     const PrivateRoute = ({component: Component, isAuthenticated, ...rest}) => (<Route
         {...rest}

@@ -36,7 +36,7 @@ const ENTITIES_API = `http://${process.env.REACT_APP_KONGURI}/entities`;
         // This function will be called whenever the component mounts or
         // when a value in the dependency array (second argument) changes.
         const itemsInCart = "cart" in localStorage ? JSON.parse(localStorage.getItem('cart')).length : 0;
-        const username =  "username" in localStorage ? localStorage.getItem("username") : AUTH_API ;
+        const username =  "username" in localStorage ? localStorage.getItem("username") : "Username PlaceHolder" ;
         setUsername(username);
         console.log(AUTH_API);
 
@@ -72,7 +72,7 @@ const ENTITIES_API = `http://${process.env.REACT_APP_KONGURI}/entities`;
                         </LinkContainer>
                         <NavDropdown title="Ads" id="basic-nav-dropdown">
                             <LinkContainer to="/createAd">
-                                <NavDropdown.Item>Create Ad {process.env.REACT_APP_AUTHAPI}</NavDropdown.Item>
+                                <NavDropdown.Item>Create Ad </NavDropdown.Item>
                             </LinkContainer>
                             <LinkContainer to="/allAds">
                                 <NavDropdown.Item>Show Ads</NavDropdown.Item>
