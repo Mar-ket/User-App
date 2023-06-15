@@ -28,11 +28,13 @@ export function Cart() {
     
     const checkout = () => {
         let saleId = '';
+        let uid = localStorage.getItem("username");
         setIsLoading(true);
         axios.post(`http://${kong_uri}/sales/`,
             {
-            "customer_id": localStorage.getItem("user").id,
-            "products": products.map(item => ({
+            id: 1,
+            customer_id: uid,
+            products: products.map(item => ({
                 ...item,
                 price: parseFloat(item.price)
             })),
